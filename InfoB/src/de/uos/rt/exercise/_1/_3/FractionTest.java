@@ -1,5 +1,12 @@
 package de.uos.rt.exercise._1._3;
 
+/**
+ * 
+ * @author Rene Sommerfeld
+ * @author Tim Adam
+ * 
+ * Testklasse fuer die Fraction Klasse.
+ */
 public class FractionTest {
 
 	public static void main(String[] args) {
@@ -22,10 +29,15 @@ public class FractionTest {
 		System.out.println("Ist : " + g.multiply(f));
 		
 		System.out.println("Multipliziere Bruch mit meheren Bruechen");
-		g = new Fraction(4, 5);
+		Fraction h = new Fraction(4, 5);
 		System.out.println("Soll : 4/5 * 3/2 --> 12/10 --> 6 / 5 * 6 / 9 --> 36/45 ---> 4 / 5");
-		System.out.println("Ist : " + g.multiply(new Fraction(3, 2), new Fraction(6, 9)));
+		System.out.println("Ist : " + h.multiply(new Fraction(3, 2), new Fraction(6, 9)));
 		
+		
+		System.out.println("Teile Bruch durch einen anderen Bruch");
+		Fraction i = new Fraction(8, 7);
+		System.out.println("Soll: 4/5 / 8/7 = 4/5 * 7/8 = 28/40 --> 7/10");
+		System.out.println("Ist : " + h.divide(i));
 		
 		
 	}
