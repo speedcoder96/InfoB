@@ -9,14 +9,16 @@ package de.uos.rt.exercise._1._3;
  */
 public class FractionTest {
 
+
 	public static void main(String[] args) {
+		
 		
 		//Bruch 2 / 4 
 		System.out.println("Erzeuge Bruch");
 		Fraction f = new Fraction(2, 4);
 		System.out.println("Soll : 1/2");
 		System.out.println("Ist : " + f);
-		
+				
 		//Bruch 1 / 2 multipliziert mit 6 -> 6 / 2 -> 3 / 1
 		System.out.println("Multipliziere Bruch mit Skalar");
 		System.out.println("Soll : 3/1");
@@ -40,6 +42,12 @@ public class FractionTest {
 		System.out.println("Ist : " + h.divide(i));
 		
 		
+		
+		
 	}
+	
+
+	
+	
 	
 }

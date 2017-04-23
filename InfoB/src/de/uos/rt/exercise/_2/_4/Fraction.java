@@ -1,4 +1,4 @@
-package de.uos.rt.exercise._1._3;
+package de.uos.rt.exercise._2._4;
 
 /**
  * 
@@ -7,7 +7,10 @@ package de.uos.rt.exercise._1._3;
  * 
  * Diese Klasse stellt einen mathematischen Bruch dar.
  */
+
 public class Fraction {
+	
+	private static final String REGEX_FRACTION_PATTERN = "-?(0|[1-9]\\d*/[1-9]\\d*)";
 	
 	private int numerator;
 	private int denominator;
@@ -22,7 +25,7 @@ public class Fraction {
 		if(denominator == 0) {
 			throw new RuntimeException("Der Nenner darf nicht null sein");
 		}
-		int ggt = ggt(numerator, denominator);
+		int ggt = ggT(numerator, denominator);
 		this.numerator = numerator / ggt;
 		this.denominator = denominator / ggt;
 	}
@@ -43,11 +46,11 @@ public class Fraction {
 	 * @param b - die zweite Zahl
 	 * @return der groesste gemeinsamte Teiler der beiden Zahlen
 	 */
-	private int ggt(int a, int b) {
+	private int ggT(int a, int b) {
 		if(b == 0) {
 			return a;
 		}
-		return ggt(b, a % b);
+		return ggT(b, a % b);
 	}	
 	
 	/**
@@ -115,14 +118,55 @@ public class Fraction {
 	}
 	
 	/**
+	 * Addiert diesen Bruch mit einem anderen Bruch <tt> addend </tt>.
+	 * @param addend der aufzuaddierende Bruch
+	 * @return das Ergebnis aus der Addition
+	 */
+	public Fraction add(Fraction addend) {
+		return new Fraction(numerator * addend.getDenominator() +
+				addend.getNumerator() * denominator, 
+				denominator * addend.getDenominator());
+	}
+
+	/**
+	 * Subtrahiert einen anderen Bruch <tt>subtrahend</tt> von diesem Bruch.
+	 * @param subtrahend der abzuziehende Bruch
+	 * @return das Ergebnis aus der Subtraktion
+	 */
+	public Fraction substract(Fraction subtrahend) {
+		return new Fraction(numerator * subtrahend.getDenominator() - 
+				subtrahend.getNumerator() * denominator, 
+				denominator * subtrahend.getDenominator());
+	}
+
+	/**
 	 * Gibt eine Stringrepresentation des Bruches zurueck
 	 * @return die Stringrepresentation 
 	 */
 	public String toString() {
 		boolean sign = (numerator * denominator ) < 0;
-		int numerator = (this.numerator < 0) ? this.numerator * -1 : this.numerator;
-		int denominator = (this.denominator < 0) ? this.denominator * -1 : this.denominator;
+		int numerator = (this.numerator < 0) ? 
+				this.numerator * -1 : this.numerator;
+		int denominator = (this.denominator < 0) ? 
+				this.denominator * -1 : this.denominator;
 		return ((sign) ? "-" : "") + (numerator + "/" + denominator);
+	}
+	
+	/**
+	 * Konstruiert eine Fraction Instanz aus dem uebergebenen String 
+	 * <tt>fractionString</tt> und liefert diese zurueck. Bei fehlerhaften
+	 * String ist das Ergebnis null.
+	 * @param fractionString ein String der einen Bruch repraesentiert
+	 * @return eine Fraction Instanz bei erfolgreicher Konstruktion, ansonsten
+	 * null
+	 */
+	public static Fraction parseFraction(String fractionString) {
+		if(fractionString.matches(REGEX_FRACTION_PATTERN)) {
+			String[] fractionStringParts = fractionString.split("/");
+			return new Fraction(Integer.parseInt(fractionStringParts[0]),
+					Integer.parseInt(fractionStringParts[1]));
+		}
+		return null;
 	}
 	
 
