@@ -53,6 +53,15 @@ public class Student extends Person {
          return this.matNr == ((Student) o).getMatNr()
                && this.getName().equals(((Student) o).getName());
       }
+      
+      /*if(o.getClass() == Person.class) {
+    	  return ((Person)o).equals(this);
+      }
+      
+      if(o.getClass() == Student.class) {
+    	  return this.matNr == ((Student) o).getMatNr()
+                  && this.getName().equals(((Student) o).getName());
+      }*/
 
       return false;
    }

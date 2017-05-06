@@ -1,180 +1,153 @@
 package de.uos.rt.exercise.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 
  * @author Rene Sommerfeld
  * @author Tim Adam
  * 
- * The Assertion class is a singleton. It has a bunch of 
- * overloaded 'eval' methods that compare an expected value 
- * that should be the result, to an actual value that a 
- * specific method results in. If the two values are equal,
- * a test unit is marked as PASSED, otherwise as FAILED. 
- * If all test units are registered to this class the call of
- * the printSummary method provides the information about whether 
- * or not a test has passed and how many tests have passed.
+ * This class declares a test unit case (Assertion). It holds information
+ * such as the name of the test, the expected value a certain 
+ * test should have, and the actual value that is being calculated 
+ * in run time. Each test gets created by the Assertion class, which
+ * also evaluates them.
  */
 public class Assertion {
-
 	/**
-	 * Holds the singleton instance of this class
+	 * Status for a passed test unit
 	 */
-	private static Assertion instance;
+	public static final String STATUS_TEST_PASSED = "PASSED";
+	/**
+	 * Status for a failed test unit
+	 */
+	public static final String STATUS_TEST_FAILED = "FAILED";
+	/**
+	 * Status extra for array length mismatch of a failed test unit
+	 */
+	public static final String STATUS_EXTRA_ARRAY_LENGTH_MISMATCH = "ARRAY LENGTH MISMATCH";
+	/**
+	 * Status extra for value mismatch of a failed test unit
+	 */
+	public static final String STATUS_EXTRA_VALUE_MISMATCH = "VALUE MISMATCH";
+	/**
+	 * Status extra for null value of a failed test unit
+	 */
+	public static final String STATUS_EXTRA_NULL = "NULL VALUE";
+	/**
+	 * Replacement tag for the name of the test unit in toString
+	 * method
+	 */
+	private static final String NAME_TAG = "[name]";
 	
 	/**
-	 * Holds each test that gets registered for evaluation
+	 * Replacement tag for the expected value of the test unit in toString
+	 * method
 	 */
-	private List<AssertionTest> tests;
+	private static final String EXPECTED_TAG = "[exp]";
 	
 	/**
-	 * Holds the number of tests that have failed
+	 * Replacement tag for the actual value of the test unit in toString
+	 * method
 	 */
-	private int failedTestCount;
-
-	private Assertion() {
-		tests = new ArrayList<AssertionTest>();
-		failedTestCount = 0;
-	}
+	private static final String ACTUAL_TAG = "[act]";
 	
 	/**
-	 * Returns the singleton instance of the Assertion class
-	 * @return the singleton instance of this class
+	 * Replacement tag for the status of the test unit in toString
+	 * method
 	 */
-	public static Assertion getInstance() {
-		if(instance == null) {
-			instance = new Assertion();
-		}
-		return instance;
-	}
+	private static final String STATUS_TAG = "[stat]";
 	
 	/**
-	 * Evaluates a test unit and registers it in the test unit list.
+	 * Replacement tag for the status extra of the test unit in toString
+	 * method
+	 */
+	private static final String STATUS_EXTRA_TAG = "[ext]";
+	
+	/**
+	 * Defines the format of the string that toString method returns
+	 */
+	private static final String TOSTRING_FORMAT = "Test: \t" +	NAME_TAG + "\n" + 
+			"Exp.:\t"  + EXPECTED_TAG + " \n" + 
+			"Act.:\t" + ACTUAL_TAG + "\n" + 
+			"Status:\t" + STATUS_TAG + " ( " + STATUS_EXTRA_TAG + " )" + "\n";
+	
+	/**
+	 * the name of the test unit
+	 */
+	private String name;
+	/**
+	 * the string representation of the expected value 
+	 */
+	private String expectedValue;
+	/**
+	 * the string representation of the actual value
+	 */
+	private String actualValue;
+	/**
+	 * the string representation of the status of the test unit
+	 */
+	private String status;
+	/**
+	 * the string representation of the status of the test unit
+	 */
+	private String statusExtra;
+	
+	/**
+	 * Creates a named test unit
 	 * @param name the name of the test unit
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
 	 */
-	public void eval(String name, boolean expected, boolean actual) {
-		if(expected == actual) {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_PASSED);
-		} else {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_FAILED);
-		}
+	public Assertion(String name) {
+		this.name = name;
 	}
 	
 	/**
-	 * Evaluates a test unit and registers it in the test unit list.
-	 * @param name the name of the test unit
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
+	 * Sets the string representation of the expected value
+	 * @param expectedValue the string representation of the expected value
 	 */
-	public void eval(String name, char expected, char actual) {
-		if(expected == actual) {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_PASSED);
-		} else {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_FAILED);
-		}
+	public void setExpectedValue(String expectedValue) {
+		this.expectedValue = expectedValue;
 	}
 	
 	/**
-	 * Evaluates a test unit and registers it in the test unit list.
-	 * @param name the name of the test unit
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
+	 * Sets the string representation of the actual value
+	 * @param actualValue the string representation of the actual value
 	 */
-	public void eval(String name, byte expected, byte actual) {
-		if(expected == actual) {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_PASSED);
-		} else {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_FAILED);
-		}
+	public void setActualValue(String actualValue) {
+		this.actualValue = actualValue;
 	}
 	
 	/**
-	 * Evaluates a test unit and registers it in the test unit list.
-	 * @param name the name of the test unit
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
+	 * Sets the string representation of the status
+	 * @param status the string representation of the status
 	 */
-	public void eval(String name, short expected, short actual) {
-		if(expected == actual) {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_PASSED);
-		} else {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_FAILED);
-		}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	/**
-	 * Evaluates a test unit and registers it in the test unit list.
-	 * @param name the name of the test unit
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
+	 * Sets the string extra representation of the status
+	 * @param statusExtra the string representation of the status extra
 	 */
-	public void eval(String name, int expected, int actual) {
-		if(expected == actual) {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_PASSED);
-		} else {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_FAILED);
-		}
+	public void setStatusExtra(String statusExtra) {
+		this.statusExtra = statusExtra;
 	}
 	
 	/**
-	 * Evaluates a test unit and registers it in the test unit list.
-	 * @param name the name of the test unit
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
+	 * Returns the string representation of this test instance in the 
+	 * defined format of @see{Test.TOSTRING_FORMAT}
 	 */
-	public void eval(String name, long expected, long actual) {
-		if(expected == actual) {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_PASSED);
-		} else {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), AssertionTest.STATUS_TEST_FAILED);
-		}
+	@Override
+	public String toString() {
+		String nameTag = (name != null) ? name : NAME_TAG;
+		String expectedTag = (expectedValue != null) ? expectedValue : EXPECTED_TAG;
+		String actualTag = (actualValue != null) ? actualValue : ACTUAL_TAG;
+		String statusTag = (status != null) ? status : STATUS_TAG;
+		String statusExtraTag = (statusExtra != null) ? statusExtra : "";
+		return TOSTRING_FORMAT
+				.replace(NAME_TAG, nameTag)
+				.replace(EXPECTED_TAG, expectedTag)
+				.replace(ACTUAL_TAG, actualTag)
+				.replace(STATUS_TAG, statusTag)
+				.replace(STATUS_EXTRA_TAG, statusExtraTag);
 	}
-	
-	/**
-	 * Registers a test unit with the specified name, the actual and expected
-	 * value to the test list.
-	 * @param name the name of the test unit
-	 * @param expected 
-	 * @param actual
-	 * @param status
-	 */
-	private void registerTest(String name, String expected, String actual, String status) {
-		if(name == null) {
-			name = "Test " + tests.size() + 1;
-		}
-		AssertionTest current = new AssertionTest(name);
-		if(!status.equals(AssertionTest.STATUS_TEST_PASSED)) {
-			failedTestCount++;
-		}
-		current.setExpectedValue(expected);
-		current.setActualValue(actual);
-		current.setStatus(status);
-		tests.add(current);
-	}
-	
-	/**
-	 * Prints a summary of all tests including the amount of
-	 * tests that have passed or failed.
-	 */
-	public void printSummary() {
-		if(tests.size() == 0) {
-			System.out.println("There is no test to evaluate!");
-			return;
-		}
-		for(AssertionTest test : tests) {
-			System.out.println(test);
-		}
-		int testCount = tests.size();
-		System.out.printf("%d/%d Tests passed! \n%d/%d Tests failed!", 
-				testCount - failedTestCount, testCount, 
-				failedTestCount, testCount);
-	}
-	
-	
-	
 	
 }
