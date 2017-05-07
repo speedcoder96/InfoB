@@ -232,6 +232,87 @@ public class AssertionEvaluator {
 	 * @param expected the expected value of this test
 	 * @param actual the actual value that a specific function, method results in
 	 */
+	public void eval(long expected, long actual) {
+		eval(null, expected, actual);
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list.
+	 * @param name the name of the test unit
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
+	public void eval(String name, long expected, long actual) {
+		if(expected == actual) {
+			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
+					Assertion.STATUS_TEST_PASSED, null);
+		} else {
+			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
+					Assertion.STATUS_TEST_FAILED, Assertion.STATUS_EXTRA_VALUE_MISMATCH);
+		}
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list
+	 * by calling evaluate method with the specific parameters types
+	 * and a null value for the test unit name
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
+	public void eval(double expected, double actual) {
+		eval(null, expected, actual);
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list.
+	 * @param name the name of the test unit
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
+	public void eval(String name, double expected, double actual) {
+		if(expected == actual) {
+			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
+					Assertion.STATUS_TEST_PASSED, null);
+		} else {
+			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
+					Assertion.STATUS_TEST_FAILED, Assertion.STATUS_EXTRA_VALUE_MISMATCH);
+		}
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list
+	 * by calling evaluate method with the specific parameters types
+	 * and a null value for the test unit name
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
+	public void eval(float expected, float actual) {
+		eval(null, expected, actual);
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list.
+	 * @param name the name of the test unit
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
+	public void eval(String name, float expected, float actual) {
+		if(expected == actual) {
+			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
+					Assertion.STATUS_TEST_PASSED, null);
+		} else {
+			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
+					Assertion.STATUS_TEST_FAILED, Assertion.STATUS_EXTRA_VALUE_MISMATCH);
+		}
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list
+	 * by calling evaluate method with the specific parameters types
+	 * and a null value for the test unit name
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
 	public void eval(int[] expected, int[] actual) {
 		eval(null, expected, actual);
 	}
@@ -264,35 +345,6 @@ public class AssertionEvaluator {
 					Assertion.STATUS_EXTRA_NULL);
 		}
 	}
-	
-	/**
-	 * Evaluates a test unit and registers it in the test unit list
-	 * by calling evaluate method with the specific parameters types
-	 * and a null value for the test unit name
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
-	 */
-	public void eval(long expected, long actual) {
-		eval(null, expected, actual);
-	}
-	
-	/**
-	 * Evaluates a test unit and registers it in the test unit list.
-	 * @param name the name of the test unit
-	 * @param expected the expected value of this test
-	 * @param actual the actual value that a specific function, method results in
-	 */
-	public void eval(String name, long expected, long actual) {
-		if(expected == actual) {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
-					Assertion.STATUS_TEST_PASSED, null);
-		} else {
-			registerTest(name, String.valueOf(expected), String.valueOf(actual), 
-					Assertion.STATUS_TEST_FAILED, Assertion.STATUS_EXTRA_VALUE_MISMATCH);
-		}
-	}
-	
-	
 	
 	/**
 	 * Registers a test unit with the specified name, the actual and expected
