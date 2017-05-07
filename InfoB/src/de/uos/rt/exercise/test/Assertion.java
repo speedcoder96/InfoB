@@ -4,12 +4,15 @@ package de.uos.rt.exercise.test;
  * 
  * @author Rene Sommerfeld
  * @author Tim Adam
+ * @version 1.0 07.05.2017 
  * 
  * This class declares a test unit case (Assertion). It holds information
  * such as the name of the test, the expected value a certain 
  * test should have, and the actual value that is being calculated 
  * in run time. Each test gets created by the Assertion class, which
  * also evaluates them.
+ * 
+ * 
  */
 public class Assertion {
 	/**
@@ -32,6 +35,14 @@ public class Assertion {
 	 * Status extra for null value of a failed test unit
 	 */
 	public static final String STATUS_EXTRA_NULL = "NULL VALUE";
+	/**
+	 * Status extra for a not equal value according to equals method
+	 */
+	public static final String STATUS_EXTRA_NOT_EQUAL = "NOT EQUAL ACCORDING TO EQUALS";
+	/**
+	 * Status extra for an equal value according to equals method
+	 */
+	public static final String STATUS_EXTRA_EQUAL = "EQUAL ACCORDING TO EQUALS";
 	/**
 	 * Replacement tag for the name of the test unit in toString
 	 * method

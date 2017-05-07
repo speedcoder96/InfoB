@@ -7,6 +7,7 @@ import java.util.List;
  * 
  * @author Rene Sommerfeld
  * @author Tim Adam
+ * @version 1.0 07.05.2017
  * 
  * The TestUnitEvaluator class is a singleton. It has a bunch of 
  * overloaded 'eval' methods that compare an expected value 
@@ -15,7 +16,7 @@ import java.util.List;
  * a test unit is marked as PASSED, otherwise as FAILED. 
  * If all test units are registered to this class the call of
  * the printSummary method provides the information about whether 
- * or not a test has passed and how many tests have passed.
+ * or not a test has passed and how many have passed.
  */
 public class AssertionEvaluator {
 
@@ -343,6 +344,44 @@ public class AssertionEvaluator {
 		} else {
 			registerTest(name, null, null, Assertion.STATUS_TEST_FAILED,
 					Assertion.STATUS_EXTRA_NULL);
+		}
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list
+	 * by calling evaluate method with the specific parameters types
+	 * and a null value for the test unit name
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
+	public void eval(Object expected, Object actual) {
+		eval(null, expected, actual);
+	}
+	
+	/**
+	 * Evaluates a test unit and registers it in the test unit list. Notice: This
+	 * test is based on equal method if and only if the expected parameter is
+	 * not null value. This method also includes the null value test.
+	 * @param name the name of the test unit
+	 * @param expected the expected value of this test
+	 * @param actual the actual value that a specific function, method results in
+	 */
+	public void eval(String name, Object expected, Object actual) {
+		if(expected == NullAssertion.NULL_VALUE && actual == null) {
+			registerTest(name, "null", "null", Assertion.STATUS_TEST_PASSED, Assertion.STATUS_EXTRA_NULL);
+		} else if(expected != NullAssertion.NULL_VALUE) {
+			if(actual != null) {
+				if(expected.equals(actual)) {
+					registerTest(name, expected.toString(), actual.toString(), Assertion.STATUS_TEST_PASSED, 
+							Assertion.STATUS_EXTRA_EQUAL);
+				} else {
+					registerTest(name, expected.toString(), actual.toString(), Assertion.STATUS_TEST_FAILED, 
+							Assertion.STATUS_EXTRA_NOT_EQUAL);
+				}
+			} else {
+				registerTest(name, expected.toString(), "null", Assertion.STATUS_TEST_FAILED,
+						Assertion.STATUS_EXTRA_NULL);
+			}
 		}
 	}
 	
