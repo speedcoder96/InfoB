@@ -1,14 +1,9 @@
 package de.uos.rt.exercise._3._3;
 
 public class Point2D extends Point {
-
+	
 	public Point2D(double x, double y) {
-		super(2, x, y);
-	}
-
-	@Override
-	public int compareTo(Object o) {
-		return 0;
+		super(x, y);
 	}
 
 	@Override
@@ -18,6 +13,9 @@ public class Point2D extends Point {
 
 	@Override
 	public Geometry encapsulate(Geometry paramGeometry) {
+		if(dimensions() != paramGeometry.dimensions()) {
+			return null;
+		}
 		return null;
 	}
 	
